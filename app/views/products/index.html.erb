@@ -3,18 +3,22 @@
 
 <% content_for :title, "Products" %>
 
-<h1>Products</h1>
+<div style="display: flex; align-items: center; gap: 20px;">
+    <h1>Products</h1>
+    <%= link_to "New product", new_product_path %>
+</div>
 
-<%= link_to "View my cart", cart_path %>
+<span style="display: flex; gap: 20px; padding-bottom: 20px;">
+  <%= form_with url: products_path, method: :get, local: true do |form| %>
+    <%= form.select :category,
+        Product.categories.map { |key, label| [label, key] },
+        { prompt: "All Categories" } %>
 
+    <%= form.submit "Filter" %>
+  <% end %>
 
-<%= form_with url: products_path, method: :get, local: true do |form| %>
-  <%= form.select :category,
-      Product.categories.map { |key, label| [label, key] },
-      { prompt: "All Categories" } %>
-
-  <%= form.submit "Filter" %>
-<% end %>
+  <%= link_to "🛒 View my cart", cart_path %>
+</span>
 
 <div id="products">
   <% @products.each do |product| %>
@@ -29,5 +33,3 @@
     <% end %>
   <% end %>
 </div>
-
-<%= link_to "New product", new_product_path %>
