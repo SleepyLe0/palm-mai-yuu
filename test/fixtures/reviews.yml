@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+glowing:
+  product: one
+  author_name: Somchai
+  rating: 5
+  comment: Best beans I have bought all year. Ordering again.
+
+lukewarm:
+  product: one
+  author_name: Malee
+  rating: 3
+  comment: Fine, but a little pricey for what it is.
+
+on_other_product:
+  product: two
+  author_name: Anan
+  rating: 4
+  comment: Smooth blend, arrived quickly.

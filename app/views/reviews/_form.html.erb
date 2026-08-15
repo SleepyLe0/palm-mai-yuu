@@ -1,0 +1,34 @@
+<%= form_with(model: [ product, review ]) do |form| %>
+  <% if review.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+        <% review.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :author_name, "Your name", style: "display: block" %>
+    <%= form.text_field :author_name %>
+  </div>
+
+  <div>
+    <%= form.label :rating, "Rating", style: "display: block" %>
+    <%= form.select :rating,
+          (1..Review::MAX_RATING).map { |stars| [ pluralize(stars, "star"), stars ] },
+          include_blank: "Choose a rating" %>
+  </div>
+
+  <div>
+    <%= form.label :comment, "Your review", style: "display: block" %>
+    <%= form.text_area :comment, rows: 4 %>
+  </div>
+
+  <div>
+    <%= form.submit "Leave review" %>
+  </div>
+<% end %>

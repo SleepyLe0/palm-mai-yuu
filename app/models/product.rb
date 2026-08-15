@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  has_many :reviews, dependent: :destroy
+
   enum :category, {
     single_origin_beans: "Single-Origin Beans",
     coffee_blends: "Coffee Blends",

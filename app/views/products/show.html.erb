@@ -8,3 +8,21 @@
 
   <%= button_to "Destroy this product", @product, method: :delete %>
 </div>
+
+<hr>
+
+<section>
+  <h2>Reviews</h2>
+
+  <% reviews = @product.reviews.newest_first %>
+  <% if reviews.any? %>
+    <%= render reviews %>
+  <% else %>
+    <p>No reviews yet.</p>
+  <% end %>
+</section>
+
+<section>
+  <h3>Leave a review</h3>
+  <%= render "reviews/form", product: @product, review: @review %>
+</section>

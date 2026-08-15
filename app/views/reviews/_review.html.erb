@@ -1,0 +1,16 @@
+<div id="<%= dom_id review %>">
+  <div>
+    <strong><%= review.author_name %></strong>
+    <span title="<%= review.rating %> out of <%= Review::MAX_RATING %>">
+      <%= "★" * review.rating %><%= "☆" * (Review::MAX_RATING - review.rating) %>
+    </span>
+  </div>
+
+  <div>
+    <%= review.comment %>
+  </div>
+
+  <div>
+    <small><%= review.created_at.strftime("%-d %b %Y") %></small>
+  </div>
+</div>
