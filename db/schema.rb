@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_15_072224) do
+
+ActiveRecord::Schema[8.1].define(version: 2026_08_15_073650) do
   create_table "cart_items", force: :cascade do |t|
     t.integer "cart_id", null: false
     t.datetime "created_at", null: false
@@ -60,6 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_072224) do
     t.decimal "price"
     t.integer "stock_count"
     t.datetime "updated_at", null: false
+    t.check_constraint "stock_count >= 0", name: "products_stock_count_non_negative"
   end
 
   create_table "reviews", force: :cascade do |t|

@@ -21,6 +21,9 @@
         <% end %>
         @ <%= number_to_currency item.unit_price %> each = <%= number_to_currency item.quantity * item.unit_price %>
         <%= button_to "Remove", cart_item_path(item), method: :delete %>
+        <% if item.exceeds_stock? %>
+          <p><strong>Only <%= item.product.stock_count.to_i %> left in stock — adjust before checkout.</strong></p>
+        <% end %>
       </li>
     <% end %>
   </ul>
