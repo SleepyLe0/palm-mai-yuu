@@ -7,7 +7,12 @@
 
   <div>
     <strong>Price:</strong>
-    <%= product.price %>
+    <% if product.on_sale? %>
+      <s><%= number_to_currency product.price %></s>
+      <%= number_to_currency product.current_price %>
+    <% else %>
+      <%= number_to_currency product.price %>
+    <% end %>
   </div>
 
   <div>

@@ -52,6 +52,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_073650) do
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_orders_on_created_at"
     t.index ["number"], name: "index_orders_on_number", unique: true
+
+  create_table "pricing_rules", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "ends_at"
+    t.integer "product_id"
+    t.datetime "starts_at"
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_pricing_rules_on_category"
+    t.index ["product_id"], name: "index_pricing_rules_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
