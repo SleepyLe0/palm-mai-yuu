@@ -29,6 +29,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_072224) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "order_id", null: false
+    t.integer "product_id"
+    t.string "product_name", null: false
+    t.integer "quantity", null: false
+    t.decimal "unit_price", precision: 10, scale: 2, null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "full_name", null: false
+    t.string "number", null: false
+    t.string "status", default: "pending", null: false
+    t.decimal "total_amount", precision: 10, scale: 2, null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_orders_on_created_at"
+    t.index ["number"], name: "index_orders_on_number", unique: true
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "category"
     t.datetime "created_at", null: false
@@ -50,5 +74,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_072224) do
 
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products", on_delete: :nullify
   add_foreign_key "reviews", "products"
 end

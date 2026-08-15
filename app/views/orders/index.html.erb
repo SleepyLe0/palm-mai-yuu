@@ -1,0 +1,18 @@
+<h1>Your Orders</h1>
+
+<% if @orders.empty? %>
+  <p>You have no orders yet.</p>
+<% else %>
+  <ul>
+    <% @orders.each do |order| %>
+      <li>
+        <%= link_to order.number, order %>
+        &mdash; <%= order.created_at.to_fs(:long) %>
+        &mdash; <%= order.status.humanize %>
+        &mdash; <%= number_to_currency order.total_amount %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "Continue shopping", cart_path %>

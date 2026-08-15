@@ -1,0 +1,44 @@
+<h1>Checkout</h1>
+
+<% if alert %>
+  <p><%= alert %></p>
+<% end %>
+
+<h2>Order Summary</h2>
+<ul>
+  <% current_cart.cart_items.each do |item| %>
+    <li>
+      <%= item.product.name %> &times; <%= item.quantity %>
+      @ <%= number_to_currency item.unit_price %> = <%= number_to_currency item.quantity * item.unit_price %>
+    </li>
+  <% end %>
+</ul>
+<p>Total: <%= number_to_currency current_cart.total_price %></p>
+
+<h2>Your Details</h2>
+<%= form_with model: @order do |form| %>
+  <% if @order.errors.any? %>
+    <div>
+      <h3><%= pluralize(@order.errors.count, "error") %> prevented this order from being placed:</h3>
+      <ul>
+        <% @order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name %>
+  </div>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <%= form.submit "Place order" %>
+<% end %>
+
+<%= link_to "Back to cart", cart_path %>

@@ -14,9 +14,9 @@ class CartItemsController < ApplicationController
     end
 
     if cart_item.save
-      redirect_to cart_path, notice: "Added #{product.name} to cart."
+      redirect_to products_path, notice: "Added #{product.name} to cart."
     else
-      redirect_to cart_path, alert: cart_item.errors.full_messages.to_sentence
+      redirect_to products_path, alert: cart_item.errors.full_messages.to_sentence
     end
   end
 
