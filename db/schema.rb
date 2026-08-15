@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_15_034435) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_15_040107) do
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "cart_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.decimal "unit_price", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id", "product_id"], name: "index_cart_items_on_cart_id_and_product_id", unique: true
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["product_id"], name: "index_cart_items_on_product_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "status", default: "active", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "category"
     t.datetime "created_at", null: false
@@ -19,4 +37,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_15_034435) do
     t.integer "stock_count"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "products"
 end

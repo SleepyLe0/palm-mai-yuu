@@ -4,4 +4,18 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  helper_method :current_cart
+
+  private
+
+  def current_cart
+    @current_cart ||= Cart.active.find_by(id: session[:cart_id]) || start_new_cart
+  end
+
+  def start_new_cart
+    cart = Cart.create!
+    session[:cart_id] = cart.id
+    cart
+  end
 end
