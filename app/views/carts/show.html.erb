@@ -19,14 +19,18 @@
           <%= form.number_field :quantity, name: "cart_item[quantity]", value: item.quantity, min: 1 %>
           <%= form.submit "Update" %>
         <% end %>
-        @ $<%= item.unit_price %> each = $<%= item.quantity * item.unit_price %>
+        @ <%= number_to_currency item.unit_price %> each = <%= number_to_currency item.quantity * item.unit_price %>
         <%= button_to "Remove", cart_item_path(item), method: :delete %>
       </li>
     <% end %>
   </ul>
 
   <p>Total quantity: <%= @cart.total_quantity %></p>
-  <p>Total price: $<%= @cart.total_price %></p>
+  <p>Total price: <%= number_to_currency @cart.total_price %></p>
+
+  <%= link_to "Proceed to checkout", new_order_path %>
 <% end %>
 
 <%= link_to "Continue shopping", products_path %>
+
+<p><%= link_to "Your orders", orders_path %></p>
